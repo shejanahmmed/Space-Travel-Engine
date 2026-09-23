@@ -1,0 +1,58 @@
+{
+  "milestone": "M20",
+  "name": "Milestone 20: Autonomous Flight Management System (FMS) & Capstone Release",
+  "version": "0.1.0",
+  "timestamp": "2026-09-23T13:19:21Z",
+  "git_sha": "2e9e5ee",
+  "python_version": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "score": "5/5",
+  "all_passed": true,
+  "results": [
+    {
+      "id": "B20-01",
+      "name": "Multi-Phase State Handoff Continuity & Position Smoothness",
+      "evaluated_value": "Max kinematic violation = 0.00e+00 m across 120 steps",
+      "reference_value": "Strict physical C0/C1 continuity (zero discontinuities across phase handoffs)",
+      "discrepancy": "Violation 0.00e+00 m == 0.0 m",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B20-02",
+      "name": "Autonomous PNT + ZEM/ZEV Closed-Loop Dispersion Suppression",
+      "evaluated_value": "Final Miss = 25.55 m, Velocity Error = 0.00345 m/s",
+      "reference_value": "Final Miss < 50.0 m, Velocity Error < 0.10 m/s from 5000 m / 0.5 m/s initial dispersion",
+      "discrepancy": "Miss 25.55 m <= 50.0 m, Vel error 0.00345 m/s <= 0.10 m/s",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B20-03",
+      "name": "Relativistic Rocket Propellant Conservation Ledger",
+      "evaluated_value": "Total depleted = 205.70 kg, ledger error = 0.00e+00 kg",
+      "reference_value": "Delta-m_total == sum(Delta-m_i) strictly conserved to machine precision (< 1e-12)",
+      "discrepancy": "Ledger error 0.00e+00 kg <= 1.00e-12 kg",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B20-04",
+      "name": "Sequence-of-Events (SOE) Deterministic Reproducibility & Monotonicity",
+      "evaluated_value": "Events count = 7, identical = True, monotonic = True",
+      "reference_value": "100% deterministic event generation with strictly monotonic time stamps",
+      "discrepancy": "Zero variation between duplicate simulation runs, epoch monotonicity confirmed",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B20-05",
+      "name": "FMS End-to-End Execution REST API Throughput & Latency SLA",
+      "evaluated_value": "HTTP 200 OK, Mean Latency = 73.59 ms over 5 runs",
+      "reference_value": "HTTP 200 OK, Latency SLA < 250.0 ms (Full Multi-Phase Flight Execution SLA)",
+      "discrepancy": "Mean latency 73.59 ms <= 250.0 ms",
+      "passed": true,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+authors:
+  - family-names: "Ahmmed"
+    given-names: "Farjan"
+    orcid: "https://orcid.org/0009-0003-0550-9236"
+title: "Relativistic Space Travel Computational Engine: A Unified, Reproducible Framework for High-Fidelity Astrodynamics and Proper-Time Computation"
+version: 1.0.0
+date-released: 2026-09-23
+url: "https://github.com/shejanahmmed/Space-Travel-Engine"
+repository-code: "https://github.com/shejanahmmed/Space-Travel-Engine"
+keywords:
+  - astrodynamics
+  - general relativity
+  - special relativity
+  - post-Newtonian dynamics
+  - ephemerides
+  - proper time
+  - space mission design
+license: MIT

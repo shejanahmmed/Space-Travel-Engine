@@ -1,0 +1,58 @@
+{
+  "milestone": "M18",
+  "name": "Milestone 18: Autonomous Deep-Space PNT Multi-Sensor Fusion & SR-UKF",
+  "version": "0.1.0",
+  "timestamp": "2026-09-23T10:52:04Z",
+  "git_sha": "9b7050a",
+  "python_version": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "score": "5/5",
+  "all_passed": true,
+  "results": [
+    {
+      "id": "B18-01",
+      "name": "SR-UKF Covariance Factorization & Positive Definiteness",
+      "evaluated_value": "All 50 cycles strictly positive-definite, max condition = 1.63e+15",
+      "reference_value": "Strict positive-definiteness (eigvals > 0), cond(P) bounded (Merwe 2001)",
+      "discrepancy": "Condition number 1.63e+15 <= 1.00e16",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B18-02",
+      "name": "Relativistic Multi-Sensor PNT Fusion Convergence",
+      "evaluated_value": "Pos error = 590.56 m, Vel error = 0.00067 m/s",
+      "reference_value": "Pos error < 1000.0 m, Vel error < 0.05 m/s (NASA SEXTANT / Deep Space Cruise)",
+      "discrepancy": "Pos error 590.56 m <= 1000.0 m",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B18-03",
+      "name": "DSN Blackout Autonomous Navigation Recovery",
+      "evaluated_value": "Max blackout error = 1630.38 m, Final error = 2367.15 m",
+      "reference_value": "Max blackout error < 3000.0 m, Final error < 3000.0 m (SEXTANT Flight Target)",
+      "discrepancy": "Max blackout 1630.38 m <= 3000.0 m, Final 2367.15 m <= 3000.0 m",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B18-04",
+      "name": "Filter Covariance Consistency & 3-Sigma Envelope Bounding",
+      "evaluated_value": "80/80 steps inside 3-sigma bound (100.0%)",
+      "reference_value": ">= 95.0% within 3-sigma formal covariance envelope (GUM JCGM 101:2008)",
+      "discrepancy": "Bounded percentage 100.0% >= 95.0%",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B18-05",
+      "name": "PNT Fusion REST API Throughput & Latency SLA",
+      "evaluated_value": "HTTP 200 OK, Mean Latency = 111.41 ms over 5 runs",
+      "reference_value": "HTTP 200 OK, Latency SLA < 150.0 ms (Real-time Flight Telemetry SLA)",
+      "discrepancy": "Mean latency 111.41 ms <= 150.0 ms",
+      "passed": true,
+      "notes": ""
+    }
+  ]
+}

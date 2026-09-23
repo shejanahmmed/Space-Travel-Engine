@@ -1,0 +1,113 @@
+name: Scientific Verification & Build CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Regression Suite (${{ matrix.os }} - Py${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Cache NASA JPL DE440 Ephemeris Kernel
+        id: ephemeris-cache
+        uses: actions/cache@v4
+        with:
+          path: data/ephemeris
+          key: ${{ runner.os }}-de440s-ephemeris-v2
+          restore-keys: |
+            ${{ runner.os }}-de440s-ephemeris-
+
+      - name: Install Dependencies & Package
+        run: |
+          python -m pip install --upgrade pip build wheel
+          python -m pip install -e ".[dev,web]"
+
+      - name: Download DE440s Kernel (cache miss only)
+        if: steps.ephemeris-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          mkdir -p data/ephemeris
+          NASA_URL="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp"
+          ESA_URL="https://spiftp.esac.esa.int/data/SPICE/generic_kernels/spk/planets/de440s.bsp"
+          DEST="data/ephemeris/de440s.bsp"
+          echo "Attempting NASA primary mirror..."
+          curl -L --retry 4 --retry-delay 10 --retry-all-errors \
+               --connect-timeout 30 --max-time 300 \
+               -A "RelativisticEngine/1.0.0" \
+               -o "$DEST" "$NASA_URL" && echo "NASA download OK" && exit 0
+          echo "NASA failed, trying ESA mirror..."
+          curl -L --retry 4 --retry-delay 10 --retry-all-errors \
+               --connect-timeout 30 --max-time 300 \
+               -A "RelativisticEngine/1.0.0" \
+               -o "$DEST" "$ESA_URL" && echo "ESA download OK" && exit 0
+          echo "All mirrors failed." && exit 1
+
+      - name: Verify DE440s Kernel Integrity
+        env:
+          PYTHONPATH: src
+        run: |
+          python -c "from relativistic_engine.ephemeris.jpl_loader import load_jpl_ephemeris; k = load_jpl_ephemeris(auto_download=False); assert len(k.segments) == 14, f'Expected 14 segments, got {len(k.segments)}'; print(f'Kernel OK: {len(k.segments)} segments')"
+
+      - name: Execute Full Scientific Test Suite
+        env:
+          PYTHONPATH: src
+        run: |
+          pytest -v
+
+      - name: Execute SGL Benchmark (M16)
+        env:
+          PYTHONPATH: src
+        run: |
+          python benchmarks/milestone16_benchmark.py
+
+      - name: Execute XPNAV Benchmark (M17)
+        env:
+          PYTHONPATH: src
+        run: |
+          python benchmarks/milestone17_benchmark.py
+
+      - name: Execute FMS Capstone Benchmark (M20)
+        env:
+          PYTHONPATH: src
+        run: |
+          python benchmarks/milestone20_benchmark.py
+
+      - name: Verify Package Build (sdist and wheel)
+        run: |
+          python -m build
+
+  docker:
+    name: Container Build & Healthcheck
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Container Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: space-travel-engine:ci-test

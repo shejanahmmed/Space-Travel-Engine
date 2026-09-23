@@ -1,0 +1,25 @@
+# Docker build context exclusion rules
+.git
+.github
+.gitignore
+.venv
+venv
+ENV
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.benchmarks
+*.egg-info
+dist
+build
+*.bsp
+*.spk
+*.tar.gz
+*.whl
+.coverage
+htmlcov
+.system_generated
+benchmarks/reports/AUDIT_TRAIL.jsonl.bak

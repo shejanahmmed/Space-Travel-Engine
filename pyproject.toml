@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "relativistic-space-travel-engine"
+version = "1.0.0"
+description = "High-precision peer-verifiable computational engine for relativistic space travel trajectories and proper-time calculations."
+authors = [
+    { name = "Farjan Ahmmed", email = "farjan.swe@gmail.com" }
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = [
+    "astrodynamics",
+    "relativity",
+    "general-relativity",
+    "special-relativity",
+    "ephemerides",
+    "nasa-jpl",
+    "post-newtonian",
+    "solar-gravitational-lens",
+    "kerr-black-hole",
+    "proper-time"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "mpmath>=1.3.0",
+    "jplephem>=2.18",
+    "requests>=2.28.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/shejanahmmed/Space-Travel-Engine"
+Documentation = "https://github.com/shejanahmmed/Space-Travel-Engine#readme"
+Repository = "https://github.com/shejanahmmed/Space-Travel-Engine.git"
+"Bug Tracker" = "https://github.com/shejanahmmed/Space-Travel-Engine/issues"
+
+[project.scripts]
+relativistic-engine = "relativistic_engine.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-benchmark>=4.0.0",
+    "httpx>=0.25.0",
+    "build>=1.0.0"
+]
+web = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+pythonpath = ["src"]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

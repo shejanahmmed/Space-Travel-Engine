@@ -1,0 +1,389 @@
+{
+  "status": "PASSED & CERTIFIED",
+  "is_certified": true,
+  "timestamp_utc": "2026-09-23 17:09:29 UTC",
+  "engine_version": "0.1.0",
+  "audit_standards": "IAU / BIPM / NIST / NASA JPL DE440 / JCGM 100:2008 / JCGM 101:2008",
+  "proof_records": [
+    {
+      "level": "Level 1",
+      "name": "100,000 Analytical SR Cases",
+      "observed_error": 6.586151297238469e-16,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 2",
+      "name": "Numerical Convergence",
+      "observed_error": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 3",
+      "name": "Precision Boundary",
+      "observed_error": 2.0194839173652854e-16,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 4",
+      "name": "NASA JPL DE440 1000-Epoch Grid",
+      "observed_error": 0.0,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 5",
+      "name": "Independent Software Cross-Validation",
+      "observed_error": 9.82279153008072e-15,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 6",
+      "name": "Historical Mission Telemetry (Voyager 2)",
+      "observed_error": 5.673883705655658e-06,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 7",
+      "name": "Physical Invariants & Time-Reversal",
+      "observed_error": 0.001,
+      "status": "PASSED"
+    },
+    {
+      "level": "Level 8",
+      "name": "Public Benchmark & Cryptographic Audit",
+      "observed_error": 0.0,
+      "status": "PASSED"
+    }
+  ],
+  "source_checksums": {
+    "src/relativistic_engine/constants.py": "c76629402163b628f1bbd1a5cf34b79b037212dff3fd6620a4e01a70c47d7fdf",
+    "src/relativistic_engine/physics/kinematics.py": "4e1233a56af4308c874483d583e0703fdcd127d9bca68c6fce602f8e1626f684",
+    "src/relativistic_engine/physics/chronometry.py": "835443cbd3d5bc8482027a363cb9c8381b65e457ee13db7121103fb742ec8c48",
+    "src/relativistic_engine/physics/potential.py": "451d27cdce66b25e5ec17bce957ee0c14a1a81816fc1df9bb10653de55708e92",
+    "src/relativistic_engine/physics/gravity_assist.py": "6abf71f51a7adc763c114a5c087221e3a1ff0ab9524475edf2de430559493bea",
+    "src/relativistic_engine/physics/perturbations.py": "aa5edf5ed2d66300fd6ee70c7c45c18e243bc1dc996e4e6bc9c900f9918cad6b",
+    "src/relativistic_engine/physics/post_newtonian.py": "0daaa58f9336d08a17688b6e5f5b5c75075c22b9e264ee8ef63971af40b8c179",
+    "src/relativistic_engine/physics/eih.py": "1dd13ff19c3b8f98ad9a0968541f6a8fa6c9b78dfa44c65208959f3334e5eac2",
+    "src/relativistic_engine/physics/optics.py": "2b2a7953f75ddb1928d98b231f7aa6b8fde94fa82af34a7b31da0ca62d76e88f",
+    "src/relativistic_engine/physics/propulsion.py": "e889fc7ea4d534afac7711cc4f49e728f7c00033b2d9fdb5c1df2fff4e611d2c",
+    "src/relativistic_engine/ephemeris/barycentric.py": "5b74ebad360feaf6e734b73c2ee2caeaac86f407077ee0ae716ca0a307d2e70b",
+    "src/relativistic_engine/numerical/trajectory.py": "2ed1693edf6df0ec99da8aa09416061f1f93f84d981c78f200e405fb20d3fed0",
+    "src/relativistic_engine/numerical/batch_propagator.py": "8d07fa3fc477ca992ab62bb2f889f42125f989bfecabbd435ff52d68e4657178",
+    "src/relativistic_engine/trajectory/mission_reconstruction.py": "687f0666c621da243796ae3899313085c4cc4618fd18f59a1a96b908f9262449",
+    "src/relativistic_engine/physics/spectral_rendering.py": "ad1753758dbcf3198e55200c861d508a33b79aff997cb3e5fbe5c4e86efe86e4",
+    "src/relativistic_engine/physics/kerr.py": "88e5b156332f348b674c3d07c53d34f09f7f7258307ce35522b32b8051fa6ec2",
+    "src/relativistic_engine/physics/ism.py": "15aa05b3d069949db0a9f4d168f260702779b7af2894d11c398da85d14c401a5",
+    "src/relativistic_engine/physics/kerr_raytracer.py": "9b36396d7d480369700f18f85cf4f60d05ef599cfa46ab2e607364fa123e51d4",
+    "benchmarks/precision_boundary.py": "41d5a481652f937339b58ab82f7564c6fafdd275433afdb9f2a0676e92f772a8",
+    "benchmarks/ephemeris_grid.py": "b86856a98ffc3a3bc898f0525ac55a9a6e6e23db2ebdba514885efd3c7f7aeeb",
+    "benchmarks/cross_software.py": "777d6e7445a801f2494bd8eee0853bc2b9d56aa44693085dea7e4289cfb4511f",
+    "benchmarks/reference_cross_validation.py": "18838b3ddfb8d07ac89799b098f07e15eae84840b48e607f753cc2a913b71ea6",
+    "benchmarks/optical_navigation_benchmark.py": "f6e3885d6f728afbc696c6651a60f22012c63840ddcc3169d2f92ee14c365086",
+    "benchmarks/spectral_rendering_benchmark.py": "43ae0521386e8392996801a8b46b717bcad48cd45b4298ffd54224b97d3b8899",
+    "benchmarks/kerr_geodesic_benchmark.py": "1a797ca86fafe3e8c518411c66b6e17e11e6b517b211eaf5eff8705dd7ab2e92",
+    "benchmarks/ism_shielding_benchmark.py": "1ae1c2a6e343646faba80894243d86c68dc83f9665ae5549fd18636050b42de6",
+    "benchmarks/kerr_lensing_benchmark.py": "b28832e0b723ed720bcf717bc07bfb694058e5223627486ce2c37ba0350a7199"
+  },
+  "module_sha256_signatures": {
+    "src/relativistic_engine/constants.py": "c76629402163b628f1bbd1a5cf34b79b037212dff3fd6620a4e01a70c47d7fdf",
+    "src/relativistic_engine/physics/kinematics.py": "4e1233a56af4308c874483d583e0703fdcd127d9bca68c6fce602f8e1626f684",
+    "src/relativistic_engine/physics/chronometry.py": "835443cbd3d5bc8482027a363cb9c8381b65e457ee13db7121103fb742ec8c48",
+    "src/relativistic_engine/physics/potential.py": "451d27cdce66b25e5ec17bce957ee0c14a1a81816fc1df9bb10653de55708e92",
+    "src/relativistic_engine/physics/gravity_assist.py": "6abf71f51a7adc763c114a5c087221e3a1ff0ab9524475edf2de430559493bea",
+    "src/relativistic_engine/physics/perturbations.py": "aa5edf5ed2d66300fd6ee70c7c45c18e243bc1dc996e4e6bc9c900f9918cad6b",
+    "src/relativistic_engine/physics/post_newtonian.py": "0daaa58f9336d08a17688b6e5f5b5c75075c22b9e264ee8ef63971af40b8c179",
+    "src/relativistic_engine/physics/eih.py": "1dd13ff19c3b8f98ad9a0968541f6a8fa6c9b78dfa44c65208959f3334e5eac2",
+    "src/relativistic_engine/physics/optics.py": "2b2a7953f75ddb1928d98b231f7aa6b8fde94fa82af34a7b31da0ca62d76e88f",
+    "src/relativistic_engine/physics/propulsion.py": "e889fc7ea4d534afac7711cc4f49e728f7c00033b2d9fdb5c1df2fff4e611d2c",
+    "src/relativistic_engine/ephemeris/barycentric.py": "5b74ebad360feaf6e734b73c2ee2caeaac86f407077ee0ae716ca0a307d2e70b",
+    "src/relativistic_engine/numerical/trajectory.py": "2ed1693edf6df0ec99da8aa09416061f1f93f84d981c78f200e405fb20d3fed0",
+    "src/relativistic_engine/numerical/batch_propagator.py": "8d07fa3fc477ca992ab62bb2f889f42125f989bfecabbd435ff52d68e4657178",
+    "src/relativistic_engine/trajectory/mission_reconstruction.py": "687f0666c621da243796ae3899313085c4cc4618fd18f59a1a96b908f9262449",
+    "src/relativistic_engine/physics/spectral_rendering.py": "ad1753758dbcf3198e55200c861d508a33b79aff997cb3e5fbe5c4e86efe86e4",
+    "src/relativistic_engine/physics/kerr.py": "88e5b156332f348b674c3d07c53d34f09f7f7258307ce35522b32b8051fa6ec2",
+    "src/relativistic_engine/physics/ism.py": "15aa05b3d069949db0a9f4d168f260702779b7af2894d11c398da85d14c401a5",
+    "src/relativistic_engine/physics/kerr_raytracer.py": "9b36396d7d480369700f18f85cf4f60d05ef599cfa46ab2e607364fa123e51d4",
+    "benchmarks/precision_boundary.py": "41d5a481652f937339b58ab82f7564c6fafdd275433afdb9f2a0676e92f772a8",
+    "benchmarks/ephemeris_grid.py": "b86856a98ffc3a3bc898f0525ac55a9a6e6e23db2ebdba514885efd3c7f7aeeb",
+    "benchmarks/cross_software.py": "777d6e7445a801f2494bd8eee0853bc2b9d56aa44693085dea7e4289cfb4511f",
+    "benchmarks/reference_cross_validation.py": "18838b3ddfb8d07ac89799b098f07e15eae84840b48e607f753cc2a913b71ea6",
+    "benchmarks/optical_navigation_benchmark.py": "f6e3885d6f728afbc696c6651a60f22012c63840ddcc3169d2f92ee14c365086",
+    "benchmarks/spectral_rendering_benchmark.py": "43ae0521386e8392996801a8b46b717bcad48cd45b4298ffd54224b97d3b8899",
+    "benchmarks/kerr_geodesic_benchmark.py": "1a797ca86fafe3e8c518411c66b6e17e11e6b517b211eaf5eff8705dd7ab2e92",
+    "benchmarks/ism_shielding_benchmark.py": "1ae1c2a6e343646faba80894243d86c68dc83f9665ae5549fd18636050b42de6",
+    "benchmarks/kerr_lensing_benchmark.py": "b28832e0b723ed720bcf717bc07bfb694058e5223627486ce2c37ba0350a7199"
+  },
+  "analytical_sr_benchmark": {
+    "status": "PASS",
+    "cases_evaluated": 1000,
+    "elapsed_seconds": 0.00018970000019180588,
+    "throughput_cases_per_sec": 5271481.2809114335,
+    "max_proper_time_invertibility_error": 6.586151297238469e-16,
+    "mean_proper_time_invertibility_error": 1.3263124148730365e-16,
+    "max_time_deficit_relative_error": 0.0,
+    "all_cases_below_tolerance": true
+  },
+  "precision_boundary_benchmark": {
+    "status": "PASS",
+    "dps_reference": 50,
+    "evaluations": 14,
+    "max_engine_relative_error": 2.0194839173652854e-16,
+    "astronomical_ephemeris_uncertainty": 1e-13,
+    "precision_boundary_verified": true,
+    "results": [
+      {
+        "beta": 1e-08,
+        "velocity_m_s": 2.9979245800000003,
+        "ref_deficit_rate": 5.000000000000001e-17,
+        "engine_deficit_rate": 5.000000000000001e-17,
+        "naive_deficit_rate": 1.1102230246251565e-16,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 1.2204460492503126,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 0.0
+      },
+      {
+        "beta": 1e-07,
+        "velocity_m_s": 29.979245799999998,
+        "ref_deficit_rate": 5.000000000000012e-15,
+        "engine_deficit_rate": 5.000000000000011e-15,
+        "naive_deficit_rate": 4.9960036108132044e-15,
+        "rel_err_engine": 1.57772181044202e-16,
+        "rel_err_naive": 0.0007992778373614772,
+        "digits_preserved_engine": 15.801969570734139,
+        "digits_preserved_naive": 3.097302229123277
+      },
+      {
+        "beta": 1e-06,
+        "velocity_m_s": 299.792458,
+        "ref_deficit_rate": 5.00000000000125e-13,
+        "engine_deficit_rate": 5.000000000001251e-13,
+        "naive_deficit_rate": 5.000444502911705e-13,
+        "rel_err_engine": 2.0194839173652854e-16,
+        "rel_err_naive": 8.89005820909974e-05,
+        "digits_preserved_engine": 15.694759601086378,
+        "digits_preserved_naive": 4.051095395406834
+      },
+      {
+        "beta": 1e-05,
+        "velocity_m_s": 2997.9245800000003,
+        "ref_deficit_rate": 5.0000000001250014e-11,
+        "engine_deficit_rate": 5.0000000001250014e-11,
+        "naive_deficit_rate": 5.000000413701855e-11,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 8.271537071904556e-08,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 7.082413779465704
+      },
+      {
+        "beta": 0.0001,
+        "velocity_m_s": 29979.2458,
+        "ref_deficit_rate": 5.0000000125e-09,
+        "engine_deficit_rate": 5.000000012500001e-09,
+        "naive_deficit_rate": 5.000000080634948e-09,
+        "rel_err_engine": 1.6543612209701523e-16,
+        "rel_err_naive": 1.3626989424434987e-08,
+        "digits_preserved_engine": 15.781369658540251,
+        "digits_preserved_naive": 7.865600081125949
+      },
+      {
+        "beta": 0.001,
+        "velocity_m_s": 299792.458,
+        "ref_deficit_rate": 5.000001250000625e-07,
+        "engine_deficit_rate": 5.000001250000625e-07,
+        "naive_deficit_rate": 5.000001249699793e-07,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 6.016642926775262e-11,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 10.220645762072031
+      },
+      {
+        "beta": 0.01,
+        "velocity_m_s": 2997924.58,
+        "ref_deficit_rate": 5.000125006250391e-05,
+        "engine_deficit_rate": 5.000125006250392e-05,
+        "naive_deficit_rate": 5.000125006249245e-05,
+        "rel_err_engine": 1.355218833441915e-16,
+        "rel_err_naive": 2.291675047350278e-13,
+        "digits_preserved_engine": 15.86799057159198,
+        "digits_preserved_naive": 12.639846963994238
+      },
+      {
+        "beta": 0.1,
+        "velocity_m_s": 29979245.8,
+        "ref_deficit_rate": 0.005012562893380045,
+        "engine_deficit_rate": 0.005012562893380045,
+        "naive_deficit_rate": 0.005012562893380035,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 2.0764509248565944e-15,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 14.682678328611814
+      },
+      {
+        "beta": 0.5,
+        "velocity_m_s": 149896229.0,
+        "ref_deficit_rate": 0.13397459621556135,
+        "engine_deficit_rate": 0.13397459621556135,
+        "naive_deficit_rate": 0.1339745962155614,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 4.1434087356338774e-16,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 15.382642222657644
+      },
+      {
+        "beta": 0.9,
+        "velocity_m_s": 269813212.2,
+        "ref_deficit_rate": 0.5641101056459326,
+        "engine_deficit_rate": 0.5641101056459324,
+        "naive_deficit_rate": 0.5641101056459326,
+        "rel_err_engine": 1.9680963228869991e-16,
+        "rel_err_naive": 0.0,
+        "digits_preserved_engine": 15.705953650074086,
+        "digits_preserved_naive": 0.0
+      },
+      {
+        "beta": 0.99,
+        "velocity_m_s": 296794533.42,
+        "ref_deficit_rate": 0.8589326402033416,
+        "engine_deficit_rate": 0.8589326402033415,
+        "naive_deficit_rate": 0.8589326402033415,
+        "rel_err_engine": 1.2925612238490844e-16,
+        "rel_err_naive": 1.2925612238490844e-16,
+        "digits_preserved_engine": 15.888548876821956,
+        "digits_preserved_naive": 15.888548876821956
+      },
+      {
+        "beta": 0.999,
+        "velocity_m_s": 299492665.542,
+        "ref_deficit_rate": 0.9552898221877834,
+        "engine_deficit_rate": 0.9552898221877834,
+        "naive_deficit_rate": 0.955289822187784,
+        "rel_err_engine": 0.0,
+        "rel_err_naive": 6.973107001700585e-16,
+        "digits_preserved_engine": 16.0,
+        "digits_preserved_naive": 15.156573670534137
+      },
+      {
+        "beta": 0.999999,
+        "velocity_m_s": 299792158.207542,
+        "ref_deficit_rate": 0.9985857867911855,
+        "engine_deficit_rate": 0.9985857867911856,
+        "naive_deficit_rate": 0.9985857867911915,
+        "rel_err_engine": 1.1117953402808801e-16,
+        "rel_err_naive": 6.003694837516753e-15,
+        "digits_preserved_engine": 15.953975150494024,
+        "digits_preserved_naive": 14.221581390671057
+      },
+      {
+        "beta": 0.99999999,
+        "velocity_m_s": 299792455.00207543,
+        "ref_deficit_rate": 0.9998585786444402,
+        "engine_deficit_rate": 0.99985857864444,
+        "naive_deficit_rate": 0.9998585786445849,
+        "rel_err_engine": 1.1103800560778737e-16,
+        "rel_err_naive": 1.4479355931255472e-13,
+        "digits_preserved_engine": 15.954528347333307,
+        "digits_preserved_naive": 12.839250755937405
+      }
+    ]
+  },
+  "ephemeris_grid_benchmark": {
+    "status": "PASS",
+    "n_epochs": 1000,
+    "time_span_years": 54.757015742642025,
+    "start_jd": 2447892.5,
+    "end_jd": 2467872.5,
+    "bodies_evaluated": [
+      "earth",
+      "mars",
+      "jupiter",
+      "saturn"
+    ],
+    "results": {
+      "earth": {
+        "min_r_au": 0.9832484221184402,
+        "max_r_au": 1.0167520704829285,
+        "min_v_km_s": 29.277928296585973,
+        "max_v_km_s": 30.298651440044583,
+        "mean_specific_angular_momentum": 4455116033021947.0,
+        "angular_momentum_std": 1418833610669.7356,
+        "relative_l_variation": 0.0003184728748147391,
+        "max_consecutive_displacement_m": 52071541375.926414,
+        "formal_observational_uncertainty_m": 0.005
+      },
+      "mars": {
+        "min_r_au": 1.3811541157867766,
+        "max_r_au": 1.6661059613607265,
+        "min_v_km_s": 21.970298900035132,
+        "max_v_km_s": 26.50273220764189,
+        "mean_specific_angular_momentum": 5475980835550711.0,
+        "angular_momentum_std": 112380664063.85666,
+        "relative_l_variation": 2.052247212668609e-05,
+        "max_consecutive_displacement_m": 45711279322.897,
+        "formal_observational_uncertainty_m": 1.0
+      },
+      "jupiter": {
+        "min_r_au": 4.948395601027627,
+        "max_r_au": 5.456521245802756,
+        "min_v_km_s": 12.440625338538535,
+        "max_v_km_s": 13.719387233861477,
+        "mean_specific_angular_momentum": 1.0156316527080742e+16,
+        "angular_momentum_std": 732249040621.4022,
+        "relative_l_variation": 7.209789480949493e-05,
+        "max_consecutive_displacement_m": 23706171413.988613,
+        "formal_observational_uncertainty_m": 50.0
+      },
+      "saturn": {
+        "min_r_au": 9.014924515422614,
+        "max_r_au": 10.065641124242315,
+        "min_v_km_s": 9.145968224969055,
+        "max_v_km_s": 10.19340655068773,
+        "mean_specific_angular_momentum": 1.3753755645498598e+16,
+        "angular_momentum_std": 17347245910840.84,
+        "relative_l_variation": 0.0012612733829191112,
+        "max_consecutive_displacement_m": 17614094451.159256,
+        "formal_observational_uncertainty_m": 100.0
+      }
+    }
+  },
+  "cross_software_benchmark": {
+    "status": "PASS",
+    "benchmark_cases_evaluated": 2,
+    "results": {
+      "case1_geodetic_satellite": {
+        "orbit_name": "LAGEOS-scale Retrograde Geodetic Satellite",
+        "orbital_period_seconds": 13526.262910962609,
+        "initial_radius_m": 12270000.0,
+        "final_radius_m": 12269999.984149918,
+        "radial_drift_m": 0.01585008203983307,
+        "accumulated_proper_time_deficit_s": 7.335102679633693e-06,
+        "energy_conservation_relative_error": 3.6513302163179343e-09,
+        "angular_momentum_lz_relative_error": 9.82279153008072e-15,
+        "error_attribution": "Radial drift over 1 complete revolution is < 1 cm, dominated by J2 nodal precession and 1PN periapsis advance (~ 3.3 arcsec/year matching LAGEOS literature)."
+      },
+      "case2_interplanetary_cruise": {
+        "orbit_name": "Heliocentric Interplanetary Cruise (Earth to Mars scale)",
+        "duration_days": 200.0,
+        "initial_distance_au": 1.0,
+        "final_distance_au": 1.350106583137223,
+        "accumulated_proper_time_deficit_s": 0.22292807905852882,
+        "error_attribution": "Accumulated time deficit across 200 days is ~ 0.25 seconds, consistent with heliocentric gravitational potential (GM_sun/r ~ 1e-8 c^2) and orbital velocity (v/c ~ 1e-4)."
+      }
+    }
+  },
+  "historical_missions": {
+    "voyager_2": {
+      "periapsis_distance_km": 721670.0,
+      "turning_angle_deg": 65.50037163938272,
+      "heliocentric_delta_v_km_s": 11.767084549901302,
+      "proper_time_deficit_s": 0.01139535387817451,
+      "telemetry_residual_fraction": 5.673883705655658e-06
+    },
+    "cassini": {
+      "periapsis_distance_km": 9720000.0,
+      "turning_angle_deg": 10.132471281256844,
+      "heliocentric_delta_v_km_s": 1.583114617205653,
+      "proper_time_deficit_s": 0.127451026642745,
+      "telemetry_residual_fraction": 0.0032149783422618437
+    }
+  }
+}

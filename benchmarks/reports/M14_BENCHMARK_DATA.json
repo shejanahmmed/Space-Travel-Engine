@@ -1,0 +1,76 @@
+{
+  "milestone": "M14",
+  "name": "Spin-Orbit / Clock Transport / 2PN Workstation",
+  "version": "0.1.0",
+  "timestamp": "2026-09-21T20:09:19Z",
+  "git_sha": "f442220",
+  "python_version": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "score": "7/7",
+  "all_passed": true,
+  "results": [
+    {
+      "id": "B14-01",
+      "name": "Gravity Probe B Geodetic Precession",
+      "evaluated_value": "6.6210 arcsec/yr",
+      "reference_value": "6.6061 arcsec/yr (Everitt et al. 2011 / de Sitter formula)",
+      "discrepancy": "1.4884e-02 arcsec/yr (0.225%)",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-02",
+      "name": "Gravity Probe B Lense-Thirring Frame-Dragging",
+      "evaluated_value": "40.93 mas/yr",
+      "reference_value": "39.18 mas/yr (Everitt et al. 2011)",
+      "discrepancy": "1.7509e+00 mas/yr (4.469%)",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-03",
+      "name": "Gyroscope Spin Norm Strict Conservation",
+      "evaluated_value": "Norm = 1.0000000000000044",
+      "reference_value": "Norm = 1.0000000000000000 (exact Rodrigues invariant)",
+      "discrepancy": "4.441e-15 (machine epsilon bound)",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-04",
+      "name": "GPS Relativistic Clock Drift & Factory Offset",
+      "evaluated_value": "+38.574 µs/day net  (grav +45.79, kin -7.21)",
+      "reference_value": "+38.60 µs/day net (Ashby 2003 / NIST)",
+      "discrepancy": "0.0261 µs/day (< 0.15 µs bound)",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-05",
+      "name": "Terrestrial Equatorial Closed-Loop Sagnac Delay",
+      "evaluated_value": "207.3861 ns",
+      "reference_value": "207.38 ns (Allan et al. 1985 / Ashby 2003 / Post 1967)",
+      "discrepancy": "0.0061 ns (< 0.05 ns bound)",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-06",
+      "name": "NASA Deep Space Atomic Clock (DSAC) 24-hr Timing Jitter",
+      "evaluated_value": "0.2592 ns / 24 hrs  (σ_y = 3.00e-15)",
+      "reference_value": "< 0.300 ns / 24 hrs (Burt et al. 2021, Nature)",
+      "discrepancy": "Margin: 0.0408 ns below flight limit",
+      "passed": true,
+      "notes": ""
+    },
+    {
+      "id": "B14-07",
+      "name": "2PN Workstation Symplectic Hamiltonian Energy Invariance",
+      "evaluated_value": "ΔE/E₀ = 1.6985e-11",
+      "reference_value": "ΔE/E₀ < 1.00e-07 (4th-order symplectic, dt=3600s)",
+      "discrepancy": "Drift exponent: 10^-10.8",
+      "passed": true,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relativistic Space Travel Computational Engine | Spacetime & Ephemeris Visualizer</title>
+  <meta name="description" content="High-precision scientific computation engine unifying NASA/JPL DE440 ephemerides, 1PN general & special relativity, proper-time chronometry, and 8-layer validation.">
+  
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="theme-dark">
+  <!-- Dynamic Background Grid & Stars -->
+  <div class="stars-container" id="stars-bg"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    
+    <!-- Top Navigation & Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-badges">
+          <span class="brand-badge">NASA/JPL DE440</span>
+          <span class="brand-badge badge-gr">1PN BCRS</span>
+          <span class="brand-badge badge-audit">8-Layer Certified</span>
+        </div>
+        <h1 class="brand-title">Relativistic Space Travel <span class="accent-cyan">Engine</span></h1>
+      </div>
+      
+      <div class="header-actions">
+        <div class="system-status" id="system-status">
+          <span class="status-dot"></span>
+          <span class="status-label" id="status-label">Engine: 122/122 Proofs Verified</span>
+        </div>
+        <button class="btn btn-secondary" id="btn-open-certificate">
+          <span class="icon">🛡️</span> Validation Certificate
+        </button>
+      </div>
+    </header>
+
+    <!-- Mission Category Navigation Bar -->
+    <nav class="mode-navbar">
+      <div class="mode-tabs" id="mission-mode-tabs">
+        <button class="mode-tab-btn active" data-mode="interplanetary" id="tab-interplanetary">
+          <span class="tab-icon">🪐</span>
+          <span class="tab-text">Interplanetary Rendezvous</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="interstellar" id="tab-interstellar">
+          <span class="tab-icon">✨</span>
+          <span class="tab-text">Interstellar (Gaia DR3)</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="porkchop" id="tab-porkchop">
+          <span class="tab-icon">🥩</span>
+          <span class="tab-text">2D Porkchop Optimizer</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="tour" id="tab-tour">
+          <span class="tab-icon">🔄</span>
+          <span class="tab-text">Planetary Tour & Flybys</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="low_thrust" id="tab-low-thrust">
+          <span class="tab-icon">🚀</span>
+          <span class="tab-text">Low-Thrust Collocation</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="monte_carlo" id="tab-monte-carlo">
+          <span class="tab-icon">🎲</span>
+          <span class="tab-text">Monte Carlo Dispersion</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="dsn" id="tab-dsn">
+          <span class="tab-icon">📡</span>
+          <span class="tab-text">DSN Navigation & OD</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="kerr" id="tab-kerr">
+          <span class="tab-icon">🕳️</span>
+          <span class="tab-text">Kerr Black Hole Lensing</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="manifest" id="tab-manifest">
+          <span class="tab-icon">📜</span>
+          <span class="tab-text">PROV-O Manifest</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="pn2" id="tab-pn2">
+          <span class="tab-icon">🌌</span>
+          <span class="tab-text">2PN & Quad Symplectic</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="pnt" id="tab-pnt">
+          <span class="tab-icon">🧭</span>
+          <span class="tab-text">XPNAV & PNT Fusion</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="guidance" id="tab-guidance">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-text">ZEM/ZEV Guidance</span>
+        </button>
+        <button class="mode-tab-btn" data-mode="fms" id="tab-fms">
+          <span class="tab-icon">🚀</span>
+          <span class="tab-text">FMS & Executive</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <main class="main-dashboard">
+      
+      <!-- Left Column: Controls & Mission Setup -->
+      <aside class="dashboard-sidebar">
+        
+        <!-- Configuration Panel -->
+        <div class="card config-card">
+          <div class="card-header">
+            <h2 class="card-title" id="config-card-title">Mission Parameters</h2>
+            <span class="badge badge-info" id="regime-badge">1PN GR / BCRS</span>
+          </div>
+
+          <!-- 1. Interplanetary Form -->
+          <div class="form-container" id="form-interplanetary">
+            <div class="form-group">
+              <label for="select-dep-body">Departure Celestial Body</label>
+              <select id="select-dep-body" class="form-control">
+                <option value="earth" selected>Earth (BCRS Orbit)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-target-body">Destination Target</label>
+              <select id="select-target-body" class="form-control">
+                <option value="mars" selected>Mars (Dynamic JPL DE440)</option>
+                <option value="jupiter">Jupiter (Dynamic JPL DE440)</option>
+                <option value="moon">Moon (Geocentric / BCRS)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="input-epoch-interplanetary">Departure Epoch (Julian Date / UTC)</label>
+              <input type="number" id="input-epoch-interplanetary" class="form-control font-mono" value="2462622.5" step="0.5">
+              <small class="form-hint">JD 2462622.5 = 2030-May-01 00:00:00 TDB</small>
+            </div>
+
+            <div class="form-group">
+              <label for="select-rendezvous-mode">Trajectory Constraint</label>
+              <select id="select-rendezvous-mode" class="form-control">
+                <option value="soft" selected>Soft Rendezvous (Match r & v)</option>
+                <option value="intercept">Intercept (Flyby)</option>
+              </select>
+            </div>
+
+            <!-- Acceleration Slider -->
+            <div class="form-group">
+              <div class="slider-header">
+                <label for="slider-accel-interplanet">Proper Acceleration (α)</label>
+                <span class="slider-val font-mono" id="val-accel-interplanet">1.00 g₀ (9.81 m/s²)</span>
+              </div>
+              <input type="range" id="slider-accel-interplanet" class="slider" min="0.05" max="3.0" step="0.05" value="1.0">
+              <div class="slider-ticks">
+                <span>0.1g</span>
+                <span>1.0g</span>
+                <span>2.0g</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Interstellar Form -->
+          <div class="form-container hidden" id="form-interstellar">
+            <div class="form-group">
+              <label for="select-target-star">Target Star (Gaia DR3 Astrometry)</label>
+              <select id="select-target-star" class="form-control">
+                <option value="proxima_centauri" selected>Proxima Centauri (4.2465 ly)</option>
+                <option value="alpha_centauri_a">Alpha Centauri A (4.366 ly)</option>
+                <option value="alpha_centauri_b">Alpha Centauri B (4.366 ly)</option>
+                <option value="barnards_star">Barnard's Star (5.963 ly, 110 km/s)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="input-epoch-interstellar">Departure Epoch (Julian Date)</label>
+              <input type="number" id="input-epoch-interstellar" class="form-control font-mono" value="2451545.0" step="0.5">
+              <small class="form-hint">JD 2451545.0 = J2000.0</small>
+            </div>
+
+            <!-- Acceleration Slider -->
+            <div class="form-group">
+              <div class="slider-header">
+                <label for="slider-accel-interstellar">Proper Acceleration (α)</label>
+                <span class="slider-val font-mono" id="val-accel-interstellar">1.00 g₀ (9.81 m/s²)</span>
+              </div>
+              <input type="range" id="slider-accel-interstellar" class="slider" min="0.1" max="5.0" step="0.1" value="1.0">
+              <div class="slider-ticks">
+                <span>0.5g</span>
+                <span>1.0g</span>
+                <span>3.0g</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Porkchop Form -->
+          <div class="form-container hidden" id="form-porkchop">
+            <div class="form-group">
+              <label for="select-porkchop-origin">Origin Celestial Body</label>
+              <select id="select-porkchop-origin" class="form-control">
+                <option value="earth" selected>Earth</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-porkchop-target">Target Destination</label>
+              <select id="select-porkchop-target" class="form-control">
+                <option value="mars" selected>Mars (2026 Window)</option>
+                <option value="jupiter">Jupiter</option>
+                <option value="venus">Venus</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-porkchop-dep-start">Dep Start (JD)</label>
+                <input type="number" id="input-porkchop-dep-start" class="form-control font-mono" value="2461300.5" step="5">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-porkchop-dep-end">Dep End (JD)</label>
+                <input type="number" id="input-porkchop-dep-end" class="form-control font-mono" value="2461400.5" step="5">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-porkchop-arr-start">Arr Start (JD)</label>
+                <input type="number" id="input-porkchop-arr-start" class="form-control font-mono" value="2461500.5" step="5">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-porkchop-arr-end">Arr End (JD)</label>
+                <input type="number" id="input-porkchop-arr-end" class="form-control font-mono" value="2461700.5" step="5">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="select-porkchop-mode">Optimization Formulation</label>
+              <select id="select-porkchop-mode" class="form-control">
+                <option value="ballistic" selected>Ballistic (Lambert Universal)</option>
+                <option value="brachistochrone">Relativistic Brachistochrone</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-porkchop-steps">Grid Mesh Resolution</label>
+              <select id="select-porkchop-steps" class="form-control">
+                <option value="15">15 x 15 (Rapid Preview)</option>
+                <option value="25" selected>25 x 25 (Standard Science)</option>
+                <option value="40">40 x 40 (High Resolution)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 4. Tour Form -->
+          <div class="form-container hidden" id="form-tour">
+            <div class="form-group">
+              <label for="select-tour-preset">Planetary Tour Preset</label>
+              <select id="select-tour-preset" class="form-control">
+                <option value="evm" selected>Earth -> Venus -> Mars</option>
+                <option value="evem">Earth -> Venus -> Earth -> Mars</option>
+                <option value="ej">Earth -> Jupiter Direct</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="input-tour-bodies">Waypoints (Comma-separated)</label>
+              <input type="text" id="input-tour-bodies" class="form-control font-mono" value="earth,venus,mars">
+            </div>
+            <div class="form-group">
+              <label for="input-tour-epochs">Node Epochs JD (Comma-separated)</label>
+              <input type="text" id="input-tour-epochs" class="form-control font-mono" value="2461300.5, 2461450.5, 2461750.5">
+            </div>
+            <div class="form-group">
+              <label for="input-tour-periapsis">Flyby Periapsis Altitude (km)</label>
+              <input type="number" id="input-tour-periapsis" class="form-control font-mono" value="500.0" step="50">
+            </div>
+          </div>
+
+          <!-- 5. Low-Thrust Form -->
+          <div class="form-container hidden" id="form-low-thrust">
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="select-lt-origin">Origin</label>
+                <select id="select-lt-origin" class="form-control">
+                  <option value="earth" selected>Earth</option>
+                </select>
+              </div>
+              <div class="form-group col-half">
+                <label for="select-lt-target">Target</label>
+                <select id="select-lt-target" class="form-control">
+                  <option value="mars" selected>Mars</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-lt-m0">Wet Mass (kg)</label>
+                <input type="number" id="input-lt-m0" class="form-control font-mono" value="1500" step="100">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-lt-dry">Dry Mass (kg)</label>
+                <input type="number" id="input-lt-dry" class="form-control font-mono" value="500" step="50">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-lt-thrust">Max Thrust (N)</label>
+                <input type="number" id="input-lt-thrust" class="form-control font-mono" value="2.5" step="0.5">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-lt-isp">Isp (s)</label>
+                <input type="number" id="input-lt-isp" class="form-control font-mono" value="4500" step="100">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-lt-tof">Flight Time (Days)</label>
+                <input type="number" id="input-lt-tof" class="form-control font-mono" value="180" step="10">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-lt-segments">Segments (K)</label>
+                <input type="number" id="input-lt-segments" class="form-control font-mono" value="15" step="5">
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Monte Carlo Form -->
+          <div class="form-container hidden" id="form-monte-carlo">
+            <div class="form-group">
+              <label for="select-mc-origin">Nominal Departure Body</label>
+              <select id="select-mc-origin" class="form-control">
+                <option value="earth" selected>Earth</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-mc-pos-sigma">Position 1σ (km)</label>
+                <input type="number" id="input-mc-pos-sigma" class="form-control font-mono" value="50" step="10">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-mc-vel-sigma">Velocity 1σ (m/s)</label>
+                <input type="number" id="input-mc-vel-sigma" class="form-control font-mono" value="1.0" step="0.5">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-mc-samples">Ensemble N</label>
+                <input type="number" id="input-mc-samples" class="form-control font-mono" value="1000" step="500">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-mc-days">TOF (Days)</label>
+                <input type="number" id="input-mc-days" class="form-control font-mono" value="30" step="5">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="select-mc-backend">Computation Backend</label>
+              <select id="select-mc-backend" class="form-control">
+                <option value="auto" selected>Auto (Vectorized CPU / PyTorch)</option>
+                <option value="numpy_cpu">NumPy CPU Vectorized</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 7. DSN Navigation Form -->
+          <div class="form-container hidden" id="form-dsn">
+            <div class="form-group">
+              <label for="select-dsn-station">DSN Ground Station (ITRF 810-005)</label>
+              <select id="select-dsn-station" class="form-control">
+                <option value="goldstone" selected>Goldstone DSCC (DSS-14, California)</option>
+                <option value="madrid">Madrid DSCC (DSS-65, Spain)</option>
+                <option value="canberra">Canberra DSCC (DSS-43, Australia)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-dsn-target">Spacecraft Trajectory Profile</label>
+              <select id="select-dsn-target" class="form-control">
+                <option value="mars_approach" selected>Mars Approach (2030 Earth-Mars)</option>
+                <option value="jupiter_cruise">Jupiter Cruise (Deep Space Heliocentric)</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-dsn-duration">Pass Duration (hrs)</label>
+                <input type="number" id="input-dsn-duration" class="form-control font-mono" value="4.0" step="0.5" min="0.5" max="24.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-dsn-cadence">Cadence (s)</label>
+                <input type="number" id="input-dsn-cadence" class="form-control font-mono" value="600" step="60" min="60" max="3600">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-dsn-sig-range">Range 1σ Noise (m)</label>
+                <input type="number" id="input-dsn-sig-range" class="form-control font-mono" value="2.0" step="0.5" min="0.1">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-dsn-sig-rate">Doppler 1σ (mm/s)</label>
+                <input type="number" id="input-dsn-sig-rate" class="form-control font-mono" value="0.5" step="0.1" min="0.01">
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Kerr Black Hole Lensing Form -->
+          <div class="form-container hidden" id="form-kerr">
+            <div class="form-group">
+              <div class="slider-header">
+                <label for="slider-kerr-spin">Dimensionless Spin (a* = a/M)</label>
+                <span class="slider-val font-mono" id="val-kerr-spin">+0.900</span>
+              </div>
+              <input type="range" id="slider-kerr-spin" class="slider" min="-0.998" max="0.998" step="0.01" value="0.9">
+              <div class="slider-ticks">
+                <span>-0.998 (Retrograde)</span>
+                <span>0 (Schwarzschild)</span>
+                <span>+0.998 (Extreme)</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-kerr-mass">BH Mass (M☉)</label>
+                <input type="number" id="input-kerr-mass" class="form-control font-mono" value="10.0" step="1.0" min="1.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-kerr-dist">Camera Distance (M)</label>
+                <input type="number" id="input-kerr-dist" class="form-control font-mono" value="25.0" step="5.0" min="5.0" max="100.0">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="slider-header">
+                <label for="slider-kerr-inclination">Observer Inclination (θ_obs)</label>
+                <span class="slider-val font-mono" id="val-kerr-inclination">85.0° (Near-Equatorial)</span>
+              </div>
+              <input type="range" id="slider-kerr-inclination" class="slider" min="5.0" max="89.0" step="1.0" value="85.0">
+              <div class="slider-ticks">
+                <span>5° (Face-on)</span>
+                <span>45°</span>
+                <span>89° (Edge-on)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. PROV-O Manifest Form -->
+          <div class="form-container hidden" id="form-manifest">
+            <div class="form-group">
+              <label for="input-manifest-id">Computation Provenance ID</label>
+              <input type="text" id="input-manifest-id" class="form-control font-mono" value="M12-CAPSTONE-AUDIT-2026">
+              <small class="form-hint">W3C PROV-O JSON-LD Machine-Readable Reproducibility Standard</small>
+            </div>
+            <div class="form-group">
+              <label>Standards & Hashes Included</label>
+              <div class="font-mono text-dim text-xs" style="line-height:1.5; padding:8px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                ✓ CODATA 2018 Fundamental Constants<br>
+                ✓ IAU 2015 Resolution B3 (GM_Sun, GM_Earth)<br>
+                ✓ IERS Conventions 2010 (ω_Earth, GAST)<br>
+                ✓ NASA JPL DE440s Ephemeris Kernel<br>
+                ✓ Deterministic SHA-256 Digest
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. 2PN & Quad-Precision Symplectic Form -->
+          <div class="form-container hidden" id="form-pn2">
+            <div class="form-group">
+              <label for="select-pn2-preset">Physical Scenario Preset</label>
+              <select id="select-pn2-preset" class="form-control">
+                <option value="mercury" selected>Mercury Relativistic Perihelion Precession (Sun, 88 days)</option>
+                <option value="lageos">LAGEOS-II Geodetic Precession (Earth J2-J8, 15 days)</option>
+                <option value="gps">GPS Constellation Orbit (Earth, Quad-Precision, 1 day)</option>
+                <option value="custom">Custom Planetary State & Harmonics</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="select-pn2-central">Central Body</label>
+                <select id="select-pn2-central" class="form-control">
+                  <option value="Sun" selected>Sun</option>
+                  <option value="Earth">Earth</option>
+                  <option value="Mars">Mars</option>
+                  <option value="Jupiter">Jupiter</option>
+                </select>
+              </div>
+              <div class="form-group col-half">
+                <label for="select-pn2-order">Relativistic Order</label>
+                <select id="select-pn2-order" class="form-control">
+                  <option value="newtonian">Newtonian (0PN)</option>
+                  <option value="1pn">1PN Einstein (1/c²)</option>
+                  <option value="2pn" selected>2PN Damour-Soffel (1/c⁴)</option>
+                  <option value="2.5pn">2.5PN Gravitational Radiation</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="select-pn2-precision">Arithmetic Precision</label>
+                <select id="select-pn2-precision" class="form-control">
+                  <option value="float64" selected>Double (IEEE 754 float64)</option>
+                  <option value="quad">Quad (34-Digit 128-bit Symplectic)</option>
+                </select>
+              </div>
+              <div class="form-group col-half">
+                <label for="select-pn2-harmonics">Zonal Harmonics</label>
+                <select id="select-pn2-harmonics" class="form-control">
+                  <option value="0" selected>Degree 0 (Point Mass)</option>
+                  <option value="2">J₂ Oblateness</option>
+                  <option value="4">J₂ – J₄ Field</option>
+                  <option value="8">J₂ – J₈ Full High-Degree</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Initial Position r₀ [km] (X, Y, Z)</label>
+              <div class="form-row">
+                <input type="number" id="input-pn2-r0-x" class="form-control font-mono col-third" value="46001200.0" step="1000">
+                <input type="number" id="input-pn2-r0-y" class="form-control font-mono col-third" value="0.0" step="1000">
+                <input type="number" id="input-pn2-r0-z" class="form-control font-mono col-third" value="0.0" step="1000">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Initial Velocity v₀ [km/s] (Vx, Vy, Vz)</label>
+              <div class="form-row">
+                <input type="number" id="input-pn2-v0-x" class="form-control font-mono col-third" value="0.0" step="0.1">
+                <input type="number" id="input-pn2-v0-y" class="form-control font-mono col-third" value="58.98" step="0.1">
+                <input type="number" id="input-pn2-v0-z" class="form-control font-mono col-third" value="0.0" step="0.1">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-pn2-duration">Duration (Days)</label>
+                <input type="number" id="input-pn2-duration" class="form-control font-mono" value="88.0" step="1.0" min="0.01" max="365.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-pn2-step">Step Size (Seconds)</label>
+                <input type="number" id="input-pn2-step" class="form-control font-mono" value="3600.0" step="10.0" min="1.0">
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. XPNAV & PNT Fusion Form -->
+          <div class="form-container hidden" id="form-pnt">
+            <div class="form-group">
+              <label for="input-pnt-duration">Mission Duration (Days)</label>
+              <input type="number" id="input-pnt-duration" class="form-control font-mono" value="30.0" step="5.0" min="1.0" max="180.0">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-pnt-step">Step Size (Hours)</label>
+                <input type="number" id="input-pnt-step" class="form-control font-mono" value="6.0" step="1.0" min="1.0" max="24.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-pnt-clock-bias">Initial Clock Bias (ns)</label>
+                <input type="number" id="input-pnt-clock-bias" class="form-control font-mono" value="50.0" step="10.0">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-pnt-blackout-start">Blackout Start (Day)</label>
+                <input type="number" id="input-pnt-blackout-start" class="form-control font-mono" value="10.0" step="1.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-pnt-blackout-end">Blackout End (Day)</label>
+                <input type="number" id="input-pnt-blackout-end" class="form-control font-mono" value="20.0" step="1.0">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-pnt-pos-err">Initial Pos Error (m)</label>
+                <input type="number" id="input-pnt-pos-err" class="form-control font-mono" value="5000.0" step="500.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-pnt-vel-err">Initial Vel Error (m/s)</label>
+                <input type="number" id="input-pnt-vel-err" class="form-control font-mono" value="0.5" step="0.1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>PNT Multi-Sensor Suite (Active)</label>
+              <div class="font-mono text-dim text-xs" style="line-height:1.5; padding:8px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                ✓ XPNAV X-Ray Pulsars (B1937+21, B1821-24, J0437-4715, B0531+21)<br>
+                ✓ Optical Stellar Aberration (Lorentz 3D Vector Transform)<br>
+                ✓ Deep Space Network (DSN) 2-Way Coherent Range & Doppler<br>
+                ✓ SR-UKF Cholesky Covariance Matrix Square-Root Factorization
+              </div>
+            </div>
+          </div>
+
+          <!-- 12. Relativistic Closed-Loop Guidance (ZEM/ZEV) Form -->
+          <div class="form-container hidden" id="form-guidance">
+            <div class="form-group">
+              <label for="input-guidance-duration">Cruise Duration (Days)</label>
+              <input type="number" id="input-guidance-duration" class="form-control font-mono" value="15.0" step="5.0" min="1.0" max="180.0">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-guidance-step">Step Size (Hours)</label>
+                <input type="number" id="input-guidance-step" class="form-control font-mono" value="6.0" step="1.0" min="1.0" max="24.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-guidance-m0">Spacecraft Wet Mass (kg)</label>
+                <input type="number" id="input-guidance-m0" class="form-control font-mono" value="1500.0" step="100.0" min="100.0">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-guidance-thrust">Max Continuous Thrust (N)</label>
+                <input type="number" id="input-guidance-thrust" class="form-control font-mono" value="10.0" step="1.0" min="0.1">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-guidance-isp">Specific Impulse Isp (s)</label>
+                <input type="number" id="input-guidance-isp" class="form-control font-mono" value="4500.0" step="500.0" min="500.0">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-guidance-pos-disp">Pos Dispersion (m)</label>
+                <input type="number" id="input-guidance-pos-disp" class="form-control font-mono" value="5000.0" step="500.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-guidance-vel-disp">Vel Dispersion (m/s)</label>
+                <input type="number" id="input-guidance-vel-disp" class="form-control font-mono" value="0.5" step="0.1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Guidance & Navigation Law (Active)</label>
+              <div class="font-mono text-dim text-xs" style="line-height:1.5; padding:8px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                ✓ 1PN Relativistic Solar Gravitational Field Feedback<br>
+                ✓ Fuel-Optimal Zero-Effort-Miss / Zero-Effort-Velocity (ZEM/ZEV)<br>
+                ✓ Relativistic Mass Depletion: ṁ = (T / Isp g₀) √(1 - v²/c²)<br>
+                ✓ Schiff Geodetic Precession & Attitude Quaternion Pointing
+              </div>
+            </div>
+          </div>
+
+          <!-- 13. Autonomous Flight Management System (FMS) Form -->
+          <div class="form-container hidden" id="form-fms">
+            <div class="form-group">
+              <label for="input-fms-mission">Mission Profile</label>
+              <select id="input-fms-mission" class="form-control">
+                <option value="earth_mars_direct" selected>Earth to Mars Autonomous Interplanetary Cruise</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-fms-duration">Cruise Duration (Days)</label>
+                <input type="number" id="input-fms-duration" class="form-control font-mono" value="15.0" step="5.0" min="1.0" max="180.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-fms-step">Step Size (Hours)</label>
+                <input type="number" id="input-fms-step" class="form-control font-mono" value="6.0" step="1.0" min="1.0" max="24.0">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-fms-m0">Wet Mass (kg)</label>
+                <input type="number" id="input-fms-m0" class="form-control font-mono" value="1500.0" step="100.0" min="100.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-fms-thrust">Thrust (N)</label>
+                <input type="number" id="input-fms-thrust" class="form-control font-mono" value="10.0" step="1.0" min="0.1">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="input-fms-isp">Specific Impulse Isp (s)</label>
+                <input type="number" id="input-fms-isp" class="form-control font-mono" value="4500.0" step="500.0" min="500.0">
+              </div>
+              <div class="form-group col-half">
+                <label for="input-fms-pos-disp">Pos Dispersion (m)</label>
+                <input type="number" id="input-fms-pos-disp" class="form-control font-mono" value="5000.0" step="500.0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-fms-vel-disp">Vel Dispersion (m/s)</label>
+              <input type="number" id="input-fms-vel-disp" class="form-control font-mono" value="0.5" step="0.1">
+            </div>
+
+            <div class="form-group">
+              <label>Autonomous Flight Management System (FMS) Executive</label>
+              <div class="font-mono text-dim text-xs" style="line-height:1.5; padding:8px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                ✓ Multi-Phase State Machine: PRELAUNCH ➔ TPI ➔ CRUISE ➔ TCM ➔ TERMINAL<br>
+                ✓ Sequence of Events (SOE) Ledger with Deterministic Propellant Accounting<br>
+                ✓ XPNAV + Optical + DSN SR-UKF Sensor Fusion with Solar Conjunction Blackout<br>
+                ✓ Autonomous Midcourse Trajectory Correction Burns (TCM-1, TCM-2, TCM-3)<br>
+                ✓ 1PN Curved Spacetime Target Acquisition & Relativistic Time Deficit
+              </div>
+            </div>
+          </div>
+
+          <!-- Solve Button -->
+          <button class="btn btn-primary btn-glow" id="btn-compute-mission">
+            <span class="btn-spinner hidden" id="compute-spinner"></span>
+            <span id="compute-btn-text">Compute Relativistic Worldline</span>
+          </button>
+        </div>
+
+      </aside>
+
+      <!-- Center & Right Column: Interactive Displays -->
+      <section class="dashboard-content">
+        
+        <!-- Dual Clock Time Dilation Bar -->
+        <div class="card clocks-card">
+          <div class="dual-clocks-grid">
+            
+            <!-- Earth Clock -->
+            <div class="clock-display clock-earth">
+              <div class="clock-header">
+                <span class="clock-badge">BCRS Coordinate Frame</span>
+                <span class="clock-title">Earth / Coordinate Time (t)</span>
+              </div>
+              <div class="clock-value font-mono" id="clock-earth-val">--</div>
+              <div class="clock-footer" id="clock-earth-date">Epoch: Awaiting Computation</div>
+            </div>
+
+            <!-- Dilation Delta Badge -->
+            <div class="clock-delta-center">
+              <div class="delta-arrow">➔</div>
+              <div class="delta-badge font-mono" id="delta-deficit-badge">Δt - Δτ: 0.00 s</div>
+              <div class="delta-label">Proper Time Deficit</div>
+            </div>
+
+            <!-- Traveler Clock -->
+            <div class="clock-display clock-traveler">
+              <div class="clock-header">
+                <span class="clock-badge badge-accent">Spacecraft Rest Frame</span>
+                <span class="clock-title">Traveler Proper Time (τ)</span>
+              </div>
+              <div class="clock-value font-mono" id="clock-traveler-val">--</div>
+              <div class="clock-footer">Elapsed along ship worldline</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Telemetry Gauges Grid -->
+        <div class="telemetry-grid">
+          <div class="metric-card">
+            <div class="metric-label" id="label-metric-1">Peak Velocity (v_max)</div>
+            <div class="metric-value font-mono" id="metric-vmax">--</div>
+            <div class="metric-sub font-mono" id="metric-beta">β = 0.0000 c</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" id="label-metric-2">Lorentz Factor (γ) / Deficit</div>
+            <div class="metric-value font-mono accent-purple" id="metric-gamma">--</div>
+            <div class="metric-sub" id="metric-gamma-desc">Time dilation factor</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" id="label-metric-3">Doppler / Total Δv</div>
+            <div class="metric-value font-mono accent-amber" id="metric-doppler">--</div>
+            <div class="metric-sub" id="metric-doppler-desc">Relativistic metric</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" id="label-metric-4">Target Accuracy / Mass</div>
+            <div class="metric-value font-mono accent-emerald" id="metric-miss">--</div>
+            <div class="metric-sub" id="metric-rel-vel">Rel vel: -- m/s</div>
+          </div>
+        </div>
+
+        <!-- Canvas Visualizer Section -->
+        <div class="card visualizer-card">
+          <div class="visualizer-header">
+            <div class="visualizer-tabs" id="view-mode-tabs">
+              <button class="vtab-btn active" data-view="orbit" id="vtab-orbit">BCRS 3D Orbit View</button>
+              <button class="vtab-btn" data-view="minkowski" id="vtab-minkowski">Minkowski Spacetime (ct vs x)</button>
+              <button class="vtab-btn hidden" data-view="porkchop_map" id="vtab-porkchop">2D Contour Heatmap</button>
+              <button class="vtab-btn hidden" data-view="propulsion_charts" id="vtab-propulsion">Propulsion & Mass Telemetry</button>
+              <button class="vtab-btn hidden" data-view="dispersion_plot" id="vtab-dispersion">Covariance Cloud</button>
+              <button class="vtab-btn hidden" data-view="dsn_telemetry" id="vtab-dsn">DSN Range/Doppler & EKF</button>
+              <button class="vtab-btn hidden" data-view="kerr_shadow" id="vtab-kerr">Bardeen Shadow & Disk</button>
+              <button class="vtab-btn hidden" data-view="manifest_json" id="vtab-manifest">PROV-O JSON-LD</button>
+              <button class="vtab-btn hidden" data-view="pn2_orbit" id="vtab-pn2-orbit">2PN Relativistic Orbit</button>
+              <button class="vtab-btn hidden" data-view="energy_drift" id="vtab-energy-drift">Symplectic Energy Drift</button>
+              <button class="vtab-btn hidden" data-view="tour_table" id="vtab-tour-table">Planetary Legs Breakdown</button>
+              <button class="vtab-btn hidden" data-view="pnt_telemetry" id="vtab-pnt">PNT Multi-Sensor Fusion & 3σ Bounds</button>
+              <button class="vtab-btn hidden" data-view="guidance_telemetry" id="vtab-guidance">ZEM/ZEV Correction & Schiff Precession</button>
+              <button class="vtab-btn hidden" data-view="fms_telemetry" id="vtab-fms">SOE & Phase Telemetry</button>
+            </div>
+            <div class="visualizer-legend" id="canvas-legend">
+              <span class="legend-item"><span class="dot dot-cyan"></span> Boost Stage (+α)</span>
+              <span class="legend-item"><span class="dot dot-amber"></span> Brake Stage (-α)</span>
+              <span class="legend-item"><span class="dot dot-target"></span> Target Orbit</span>
+            </div>
+          </div>
+
+          <div class="canvas-wrapper">
+            <canvas id="main-canvas" width="920" height="480"></canvas>
+            <div class="canvas-overlay-info" id="canvas-overlay">
+              <span id="canvas-info-text">Select parameters and click Compute</span>
+            </div>
+            <!-- Floating interactive tooltip for Porkchop inspection -->
+            <div class="canvas-tooltip hidden" id="porkchop-tooltip"></div>
+            <!-- Interactive JSON-LD Manifest Inspector Box -->
+            <div class="manifest-inspector hidden" id="manifest-inspector">
+              <div class="manifest-actions">
+                <span class="manifest-badge font-mono">W3C PROV-O JSON-LD</span>
+                <button class="btn btn-sm btn-secondary" id="btn-copy-manifest">📋 Copy JSON-LD</button>
+              </div>
+              <pre class="manifest-code font-mono" id="manifest-json-code">Loading manifest...</pre>
+            </div>
+            <!-- Interactive Planetary Tour Legs Table Box -->
+            <div class="tour-inspector hidden" id="tour-inspector">
+              <div class="tour-actions">
+                <span class="tour-badge font-mono">1PN Planetary Gravity Assist & Flyby Sequence</span>
+                <span id="tour-summary-badge" class="badge badge-info">Total Δv: --</span>
+              </div>
+              <div class="tour-table-wrapper">
+                <table class="tour-table font-mono">
+                  <thead>
+                    <tr>
+                      <th>Leg</th>
+                      <th>Dep JD</th>
+                      <th>Arr JD</th>
+                      <th>TOF</th>
+                      <th>C₃ (km²/s²)</th>
+                      <th>Δv Dep</th>
+                      <th>Δv Arr</th>
+                      <th>Deficit (s)</th>
+                      <th>Flyby Deflection</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tour-table-body">
+                    <tr><td colspan="9" style="text-align:center; color: var(--text-dim); padding: 20px;">Awaiting computation...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Interactive FMS Sequence of Events & Telemetry Inspector Box -->
+            <div class="fms-inspector hidden" id="fms-inspector">
+              <div class="fms-actions">
+                <span class="fms-badge font-mono">FMS Sequence of Events (SOE) & Multi-Phase Ledger</span>
+                <span id="fms-status-badge" class="badge badge-success">Nominal</span>
+              </div>
+              <div class="fms-table-wrapper">
+                <table class="fms-table font-mono">
+                  <thead>
+                    <tr>
+                      <th>Time (d)</th>
+                      <th>Phase</th>
+                      <th>Event</th>
+                      <th>Δv (m/s)</th>
+                      <th>Burn (s)</th>
+                      <th>Propellant (kg)</th>
+                      <th>Mass Remaining (kg)</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id="fms-table-body">
+                    <tr><td colspan="8" style="text-align:center; color: var(--text-dim); padding: 20px;">Awaiting FMS mission computation...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time Scrubber -->
+          <div class="scrubber-bar" id="scrubber-container">
+            <div class="scrubber-controls">
+              <button class="btn-icon" id="btn-play-pause">▶</button>
+              <span class="scrubber-label font-mono" id="scrubber-time-label">T = 0.0%</span>
+            </div>
+            <input type="range" id="slider-scrubber" class="slider scrubber-slider" min="0" max="100" step="0.5" value="0">
+          </div>
+        </div>
+
+        <!-- Scientific Uncertainty & GUM Bounds Card -->
+        <div class="card uncertainty-card">
+          <div class="card-header">
+            <h3 class="card-title">Scientific Uncertainty & GUM (JCGM 100:2008) Significant Figures</h3>
+            <span class="badge badge-success">Principle 4: No False Precision</span>
+          </div>
+          <div class="uncertainty-grid font-mono">
+            <div class="unc-row">
+              <span class="unc-label">Earth Coordinate Time (t):</span>
+              <span class="unc-val" id="unc-earth-time">--</span>
+            </div>
+            <div class="unc-row">
+              <span class="unc-label">Traveler Proper Time (τ):</span>
+              <span class="unc-val" id="unc-proper-time">--</span>
+            </div>
+            <div class="unc-row">
+              <span class="unc-label">Proper Time Deficit (Δt - Δτ):</span>
+              <span class="unc-val" id="unc-deficit-time">--</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div class="footer-author">
+            <span class="footer-name">Farjan Ahmmed</span>
+          </div>
+          <p class="footer-desc">
+            Deterministic Relativistic Space-Travel Computational Engine • High-precision BCRS ephemerides, 1PN/2PN chronometry, and 8-layer validation.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <span class="footer-heading">Social Media</span>
+          <div class="footer-social-links">
+            <a href="mailto:farjan.swe@gmail.com" class="footer-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span>Email</span>
+            </a>
+            <a href="https://www.linkedin.com/in/farjan-ahmmed/" class="footer-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/shejanahmmed" class="footer-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.facebook.com/beingshejan/" class="footer-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+              </svg>
+              <span>Facebook</span>
+            </a>
+            <a href="https://www.instagram.com/iamshejan/" class="footer-link" target="_blank" rel="noopener noreferrer">
+              <svg class="footer-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 Farjan Ahmmed. Released under the MIT License.</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Cryptographic Validation Certificate Modal -->
+  <div class="modal-backdrop hidden" id="certificate-modal">
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2 class="modal-title">🛡️ Scientific Validation Certificate & Independent Audit Record</h2>
+          <span class="badge badge-success">8 / 8 Accuracy Layers Verified</span>
+        </div>
+        <button class="btn-close" id="btn-close-certificate">&times;</button>
+      </div>
+      <div class="modal-body font-mono" id="certificate-modal-body">
+        <div class="cert-loading">Loading cryptographic audit trail and 8-layer proofs...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
